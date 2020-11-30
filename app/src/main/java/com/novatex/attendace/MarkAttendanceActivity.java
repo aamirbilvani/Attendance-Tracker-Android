@@ -18,6 +18,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextClock;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,7 +31,9 @@ import com.novatex.attendace.api.ApiCallRequest;
 import com.novatex.attendace.utilities.Constant;
 import com.novatex.attendace.utilities.Utility;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -45,6 +48,7 @@ import static com.novatex.attendace.utilities.Constant.NEAR_LOCATION_GEOFENCE_RA
 public class MarkAttendanceActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Button buttonMarkAttendance;
+    private TextClock textClockDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,13 +64,42 @@ public class MarkAttendanceActivity extends AppCompatActivity implements View.On
 
     public void init() {
         buttonMarkAttendance = findViewById(R.id.buttonMarkAttendance);
+        textClockDate= findViewById(R.id.textClockDate);
         buttonMarkAttendance.setOnClickListener(this);
         buttonMarkAttendance.setEnabled(false);
+
+        setTextClockDateFormat(textClockDate);
+
         final int sdk = android.os.Build.VERSION.SDK_INT;
         if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
             buttonMarkAttendance.setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.submitbuttonshapedisabled) );
         } else {
             buttonMarkAttendance.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.submitbuttonshapedisabled));
+        }
+    }
+
+    private void setTextClockDateFormat(TextClock tc)
+    {
+        String dateFormat="dd";
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat("dd");
+
+        dateFormat+="\'"+getOrignalIndicator(Integer.parseInt(df.format(calendar.getTime())))+"\'";
+        dateFormat+=", MMMM yyyy";
+
+        tc.setFormat12Hour(dateFormat);
+    }
+
+    private String getOrignalIndicator(int n)
+    {
+        if (n >= 11 && n <= 13) {
+            return "th";
+        }
+        switch (n % 10) {
+            case 1:  return "st";
+            case 2:  return "nd";
+            case 3:  return "rd";
+            default: return "th";
         }
     }
 

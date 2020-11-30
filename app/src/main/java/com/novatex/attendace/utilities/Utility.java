@@ -15,10 +15,13 @@ import android.util.Log;
 
 import com.novatex.attendace.broadcastreceivers.LocationTracking;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.UUID;
 
 import static android.content.Context.MODE_PRIVATE;
+import static com.novatex.attendace.utilities.Constant.DATE_TIME_FORMAT;
 import static com.novatex.attendace.utilities.Constant.PREF_UUID;
 import static com.novatex.attendace.utilities.Constant.SEND_LOCATIONS_TO_SERVER_ALARM_TIMER;
 
@@ -78,6 +81,14 @@ public class Utility {
             }
         }).start();
 
+    }
+
+
+    public static String getCurrentDate() {
+
+        Calendar calendar = Calendar.getInstance();
+        DateFormat dateFormat = new SimpleDateFormat(DATE_TIME_FORMAT);
+        return dateFormat.format(calendar.getTime());
     }
 
 

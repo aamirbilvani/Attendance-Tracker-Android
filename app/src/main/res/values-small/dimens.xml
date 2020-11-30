@@ -1,0 +1,30 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="nav_header_vertical_spacing">8dp</dimen>
+    <dimen name="nav_header_height">176dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="text_size_small">9sp</dimen>
+    <dimen name="text_size">11sp</dimen>
+    <dimen name="text_size_heading">13sp</dimen>
+    <dimen name="big_button_image">50dp</dimen>
+    <dimen name="default_margin">15dp</dimen>
+    <dimen name="default_padding">15dp</dimen>
+    <dimen name="default_radius_low">5dp</dimen>
+    <dimen name="default_radius_normal">10dp</dimen>
+    <dimen name="default_radius_high">30dp</dimen>
+    <dimen name="margin_login_btn">100dp</dimen>
+
+    <dimen name="edittext_height">30dp</dimen>
+    <dimen name="social_btn_height">35dp</dimen>
+
+
+    <dimen name="submitbtn_height">30dp</dimen>
+    <dimen name="submitbtn_width">170dp</dimen>
+
+    <dimen name="circle">70sp</dimen>
+
+
+    <dimen name="seg_text_size">18dp</dimen>
+</resources>

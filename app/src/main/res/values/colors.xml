@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+
+
+
+    <color name="defaultBgColor">#fff</color>
+    <color name="fbBlue">#385c8e</color>
+    <color name="googleRed">#f14436</color>
+    <color name="defaultBtnBackColor">#0148a4</color>
+    <color name="textLightColor">#808080</color>
+    <color name="defaultFontColor">#000</color>
+    <color name="defaultBtnFontColor">#fff</color>
+
+
+    <color name="defaultShadow">#d1d1d1</color>
+
+    <color name="listItemSmallFontColor">#00b321</color>
+    <color name="whatsAppGreen">#00b321</color>
+
+    <color name="ErrorFontColor">#f00</color>
+
+    <color name="SubmitBtnBgColor">#0087db</color>
+    <color name="SubmitBtnBgDisabledColor">#cdcdcd</color>
+
+
+    <color name="defaultFeaturedBgColor">#e6e15c</color>
+    <color name="createBtnGreen">#1db954</color>
+
+</resources>

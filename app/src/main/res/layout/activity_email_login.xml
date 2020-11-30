@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/defaultBgColor"
+    android:fillViewport="true">
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="15dp">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+
+            <ImageView
+                android:id="@+id/imageViewLogo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:scaleType="fitCenter"
+
+                android:src="@drawable/logoblue"
+
+
+                />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayoutBtns"
+            android:layout_width="match_parent"
+
+
+            android:layout_height="0dp"
+            android:layout_weight="4"
+
+            android:orientation="vertical"
+
+            >
+
+            <TextView
+
+                android:id="@+id/textViewLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/default_margin"
+                android:layout_marginBottom="@dimen/default_margin"
+                android:fontFamily="@font/san_francisco"
+
+                android:text="Log in is required to perform this action"
+                android:textColor="@color/textLightColor"
+                android:textFontWeight="600"
+                android:textSize="@dimen/text_size_small"
+
+
+                />
+
+
+            <EditText
+
+                android:id="@+id/editTextUsername"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edittextshape"
+                android:drawablePadding="10dp"
+                android:fontFamily="@font/san_francisco"
+                android:hint="Username"
+                android:inputType="textEmailAddress"
+                android:paddingLeft="@dimen/default_padding"
+
+                android:paddingRight="@dimen/default_padding"
+                android:textFontWeight="600"
+
+                android:textSize="@dimen/text_size" />
+
+
+            <TextView
+
+                android:id="@+id/textViewUsernameError"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/san_francisco"
+                android:gravity="center"
+                android:text="Please enter Username its a mandatory field"
+                android:textColor="@color/ErrorFontColor"
+                android:textFontWeight="600"
+                android:textSize="@dimen/text_size_small"
+                android:visibility="invisible" />
+
+
+            <EditText
+
+                android:id="@+id/editTextPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edittextshape"
+                android:drawablePadding="10dp"
+                android:fontFamily="@font/san_francisco"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:paddingLeft="@dimen/default_padding"
+                android:paddingRight="@dimen/default_padding"
+                android:textFontWeight="600"
+                android:textSize="@dimen/text_size" />
+
+
+            <TextView
+
+                android:id="@+id/textViewPasswordError"
+                android:layout_width="266dp"
+                android:layout_height="19dp"
+                android:layout_gravity="center"
+                android:fontFamily="@font/san_francisco"
+                android:gravity="center"
+                android:text="Please enter Password its a mandatory field"
+                android:textColor="@color/ErrorFontColor"
+                android:textFontWeight="600"
+                android:textSize="@dimen/text_size_small"
+                android:visibility="invisible" />
+
+            <TextView
+android:visibility="gone"
+                android:id="@+id/textViewForgotPassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginLeft="@dimen/default_margin"
+                android:layout_marginRight="@dimen/default_margin"
+
+                android:fontFamily="@font/san_francisco"
+                android:text="Forgotten Password ? "
+                android:textColor="#00f"
+
+                android:textFontWeight="600"
+                android:textSize="@dimen/text_size_small" />
+
+            <Button
+                android:id="@+id/buttonLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/submitbtn_height"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/default_margin"
+                android:layout_marginBottom="@dimen/default_margin"
+
+                android:background="@drawable/submitbuttonshape"
+                android:elevation="20dp"
+                android:fontFamily="@font/san_francisco"
+                android:text="Log In"
+                android:textAllCaps="false"
+                android:textColor="#fff"
+
+                android:textFontWeight="600"
+                android:textSize="@dimen/text_size"
+                android:translationZ="5dp" />
+
+<!--
+            <RelativeLayout
+                android:id="@+id/relativeLayoutSignUp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/default_margin"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:id="@+id/textViewHaveAnAccount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/san_francisco"
+                    android:text="Don't have an account ? "
+                    android:textFontWeight="600"
+                    android:textSize="@dimen/text_size_small" />
+
+
+                <TextView
+                    android:id="@+id/textViewSignUp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toRightOf="@id/textViewHaveAnAccount"
+                    android:clickable="true"
+                    android:fontFamily="@font/san_francisco"
+                    android:onClick="onClick"
+                    android:text="Sign Up"
+                    android:textColor="#00f"
+                    android:textFontWeight="600"
+                    android:textSize="@dimen/text_size_small" />
+            </RelativeLayout>
+            -->
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/default_margin"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:background="@android:color/darker_gray" />
+
+                <TextView
+
+                    android:id="@+id/textViewOrConnect"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/default_margin"
+                    android:layout_marginRight="@dimen/default_margin"
+
+                    android:fontFamily="@font/san_francisco"
+                    android:text="Don't have an Account ?"
+                    android:textColor="@color/textLightColor"
+
+                    android:textFontWeight="600"
+                    android:textSize="@dimen/text_size_small" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:background="@android:color/darker_gray" />
+
+            </LinearLayout>
+
+            <Button
+
+                android:id="@+id/buttonCreate"
+                android:layout_width="match_parent"
+
+                android:layout_height="@dimen/submitbtn_height"
+
+                android:background="@drawable/createbutton"
+                android:elevation="20dp"
+
+                android:fontFamily="@font/san_francisco"
+                android:text="Create a New Account"
+
+                android:textAllCaps="false"
+                android:textColor="#fff"
+                android:textFontWeight="600"
+
+
+                android:textSize="@dimen/text_size"
+
+
+                android:translationZ="5dp" />
+
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/defaultBgColor"
+    android:fillViewport="true">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/default_margin">
+
+        <TextView
+            android:id="@+id/textViewGetStarted"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/signup_heading"
+            android:textAlignment="center"
+
+            android:textSize="@dimen/text_size_heading"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/textViewCreateAccount"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="spread_inside" />
+
+        <TextView
+            android:id="@+id/textViewCreateAccount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:text="@string/signup_subheading"
+            android:textAlignment="center"
+
+            app:layout_constraintBottom_toTopOf="@+id/editTextCNIC"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewGetStarted" />
+
+
+        <EditText
+
+            android:id="@+id/editTextCNIC"
+
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edittextshape"
+            android:hint="*CNIC"
+
+            android:inputType="textPersonName"
+
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:textSize="@dimen/text_size"
+            app:layout_constraintBottom_toTopOf="@+id/textViewCNICError"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewCreateAccount" />
+
+        <TextView
+            android:id="@+id/textViewCNICError"
+
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Please enter CNIC its a mandatory field"
+            android:textColor="@color/ErrorFontColor"
+
+            android:textSize="@dimen/text_size_small"
+
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@+id/editTextFullName"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextCNIC" />
+
+
+        <EditText
+
+
+            android:id="@+id/editTextFullName"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edittextshape"
+            android:hint="*Full Name"
+
+            android:inputType="textEmailAddress"
+
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:textSize="@dimen/text_size"
+            app:layout_constraintBottom_toTopOf="@+id/textViewFullNameError"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewCNICError" />
+
+
+        <TextView
+            android:id="@+id/textViewFullNameError"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Please enter full name its a mandatory field"
+            android:textColor="@color/ErrorFontColor"
+
+            android:textSize="@dimen/text_size_small"
+
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@+id/editTextPhone"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextFullName" />
+
+
+        <EditText
+
+            android:id="@+id/editTextPhone"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edittextshape"
+            android:hint="*Phone"
+
+            android:inputType="phone"
+
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:textSize="@dimen/text_size"
+            app:layout_constraintBottom_toTopOf="@+id/textViewPhoneError"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewFullNameError" />
+
+
+        <TextView
+            android:id="@+id/textViewPhoneError"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Please enter Phone its a mandatory field"
+            android:textColor="@color/ErrorFontColor"
+
+            android:textSize="@dimen/text_size_small"
+
+
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@+id/spinnerOffice"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextPhone" />
+
+
+        <Spinner
+            android:id="@+id/spinnerOffice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/spinnershapegrey"
+
+            android:textAlignment="center"
+
+            app:layout_constraintBottom_toTopOf="@+id/textViewOfficeError"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewPhoneError"
+
+            />
+
+        <TextView
+            android:id="@+id/textViewOfficeError"
+
+
+            android:layout_width="wrap_content"
+
+            android:layout_height="wrap_content"
+            android:text="Please select office its a mandatory field"
+            android:textColor="@color/ErrorFontColor"
+            android:textSize="@dimen/text_size_small"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@+id/editTextPassword"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spinnerOffice" />
+
+
+        <EditText
+
+            android:id="@+id/editTextPassword"
+
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edittextshape"
+            android:hint="*Password"
+
+            android:inputType="textPassword"
+
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:textSize="@dimen/text_size"
+            app:layout_constraintTop_toBottomOf="@+id/textViewOfficeError"
+            app:layout_constraintBottom_toTopOf="@+id/textViewPasswordError"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
+        <TextView
+            android:id="@+id/textViewPasswordError"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Please enter Password its a mandatory field"
+
+            android:textColor="@color/ErrorFontColor"
+
+            android:textSize="@dimen/text_size_small"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@+id/editTextConfirmPassword"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextPassword" />
+
+
+        <EditText
+
+            android:id="@+id/editTextConfirmPassword"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edittextshape"
+            android:hint="*Confirm Password"
+
+
+            android:inputType="textPassword"
+
+
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:textSize="@dimen/text_size"
+            app:layout_constraintBottom_toTopOf="@+id/textViewConfirmPasswordError"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewPasswordError" />
+
+        <TextView
+            android:id="@+id/textViewConfirmPasswordError"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Please enter Confirm Password its a mandatory field"
+
+            android:textColor="@color/ErrorFontColor"
+
+            android:textSize="@dimen/text_size_small"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@+id/buttonSignUp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextConfirmPassword" />
+
+        <Button
+            android:id="@+id/buttonSignUp"
+
+
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/submitbtn_height"
+
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+
+
+            android:background="@drawable/submitbuttonshape"
+            android:text="Create"
+            android:textColor="#fff"
+            android:textSize="@dimen/text_size_heading"
+            app:layout_constraintBottom_toTopOf="@+id/relativeLayoutLogin"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewConfirmPasswordError" />
+
+        <RelativeLayout
+
+            android:id="@+id/relativeLayoutLogin"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/buttonSignUp">
+
+
+            <TextView
+                android:id="@+id/textViewHaveAnAccount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Already have an account? " />
+
+
+            <TextView
+                android:id="@+id/textViewLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/textViewHaveAnAccount"
+                android:text="Login here"
+                android:textColor="#00f" />
+        </RelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

@@ -1,11 +1,11 @@
 package com.novatex.attendace.api;
 
-
 import android.content.Context;
-import android.os.Build;
-import android.provider.Settings;
 
+import com.novatex.attendace.models.User;
 import com.novatex.attendace.responses.LoginResponse;
+import com.novatex.attendace.responses.OfficesResponse;
+import com.novatex.attendace.responses.SignUpResponse;
 import com.novatex.attendace.utilities.Constant;
 import com.novatex.attendace.utilities.Utility;
 
@@ -22,13 +22,13 @@ import retrofit2.Response;
 
 import static com.novatex.attendace.utilities.Constant.GENERIC_ERROR;
 import static com.novatex.attendace.utilities.Constant.GENERIC_ERROR_API;
+import static com.novatex.attendace.utilities.Utility.getToken;
 
 public class ApiCallRequest {
 
     private Context context;
     private RequestApi client;
     private int a=0;
-
 
     public ApiCallRequest(Context context) {
         this.context = context;
@@ -37,7 +37,6 @@ public class ApiCallRequest {
     }
 
     private CallBackListener listener;
-
 
     public void requestLogin(String username, String password) {
 
@@ -55,6 +54,44 @@ public class ApiCallRequest {
                 onResponseFail(t);
             }
         });
+    }
+
+    public void requestGetOffices() {
+
+        Call<OfficesResponse> call = client.requestGetOffices();
+
+        call.enqueue(new Callback<OfficesResponse>() {
+            @Override
+            public void onResponse(Call<OfficesResponse> call, Response<OfficesResponse> response) {
+
+                onResponseSuccess(response, Constant.REQUEST_GET_OFFICES);
+            }
+
+            @Override
+            public void onFailure(Call<OfficesResponse> call, Throwable t) {
+                onResponseFail(t);
+            }
+        });
+
+    }
+
+
+    public void requestRegister(String username,String password, String fullname, String phone, String office) {
+
+        Call<SignUpResponse> call = client.requestRegister(username, password, fullname, phone, office);
+
+        call.enqueue(new Callback<SignUpResponse>() {
+            @Override
+            public void onResponse(Call<SignUpResponse> call, Response<SignUpResponse> response) {
+                onResponseSuccess(response, Constant.REQUEST_SIGNUP);
+            }
+
+            @Override
+            public void onFailure(Call<SignUpResponse> call, Throwable t) {
+                onResponseFail(t);
+            }
+        });
+
     }
 
     private void onResponseSuccess(Response response, int requestCode) {
@@ -110,7 +147,6 @@ public class ApiCallRequest {
             }
         }
     }
-
 
     public void setCallBackListener(CallBackListener listener) {
         this.listener = listener;

@@ -36,6 +36,7 @@ public class Constant {
     public static final int REQUEST_CRASH_REPORT = 30;
     public static final int REQUEST_RESET_PASS_EMAIL = 31;
     public static final int REQUEST_RESET_PASS= 32;
+    public static final int REQUEST_GET_OFFICES = 33;
 
     public static final String PLATFORM= "Android";
 
@@ -116,7 +117,7 @@ public class Constant {
     public static final int SCALE_MULTIPLIER=10;
 
 
-    public static String API_BASE_URL = "http://127.0.0.1:8000/apis/";
+    public static String API_BASE_URL = "http://52.221.131.164/apis/";
     //public static String API_BASE_URL = "https://devapp.sanatkar.pk/api/";
 
     //Global.USER_TOKEN=mPrefs.getString("token","");
@@ -195,7 +196,7 @@ public class Constant {
 
     public static final String KEY_STORE="AndroidKeyStore";
 
-    public static final String KEY_ALIAS="alias";
+    public static final String KEY_ALIAS="attendance_key_alias";
 
     //public static final String CRYPTO_TRANSFORMATION="AES";
     public static final String CRYPTO_TRANSFORMATION="AES/CBC/PKCS7Padding";

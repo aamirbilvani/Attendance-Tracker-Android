@@ -14,19 +14,25 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.novatex.attendace.api.ApiCallRequest;
+import com.novatex.attendace.models.Offices;
+import com.novatex.attendace.responses.OfficesResponse;
+import com.novatex.attendace.responses.SignUpResponse;
 import com.novatex.attendace.utilities.Constant;
+import com.novatex.attendace.utilities.Utility;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static com.novatex.attendace.utilities.Constant.GENERIC_ERROR_API;
+import static com.novatex.attendace.utilities.Utility.navigateToActivity;
 
 public class SignUpActivity extends AppCompatActivity implements ApiCallRequest.CallBackListener, View.OnClickListener {
 
     private ApiCallRequest callRequest;
 
     private ProgressDialog dialog;
+    private OfficesResponse officesResponse;
 
     private EditText editTextCNIC, editTextFullName, editTextPhone,  editTextPassword, editTextConfirmPassword;
     private TextView textViewLogin, textViewCNICError, textViewFullNameError, textViewPhoneError, textViewPasswordError, textViewConfirmPasswordError, textViewOfficeError;
@@ -47,23 +53,21 @@ public class SignUpActivity extends AppCompatActivity implements ApiCallRequest.
     @Override
     public void callBack(int requestType, Object object) {
         switch (requestType) {
-            case Constant.REQUEST_SIGNUP:
-                /*
-                SignUpResponse response = (SignUpResponse) object;
-                User user = response.getResponse().getData();
+            case Constant.REQUEST_GET_OFFICES:
+                officesResponse = (OfficesResponse) object;
 
-                initLoggedInParam(this, user);
-
-                if (response.getResponse().getStatus().equalsIgnoreCase("200")) {
-
-                    finish();
-
-                } else {
-                    Toast.makeText(getApplicationContext(), "Something went wrong, please try again", Toast.LENGTH_SHORT).show();
+                for(Offices o : officesResponse.getResponse().getData())
+                {
+                    brokerList.add(o.getName());
                 }
+                break;
 
+            case Constant.REQUEST_SIGNUP:
+                SignUpResponse signUpResponse = (SignUpResponse) object;
 
-                 */
+                Utility.initLoggedInParam(this,signUpResponse.getResponse().getData());
+
+                login();
                 break;
             case Constant.REQUEST_FAILED:
                 try {
@@ -83,15 +87,39 @@ public class SignUpActivity extends AppCompatActivity implements ApiCallRequest.
 
     }
 
+    private void login() {
+        try {
+
+            Intent i = new Intent(this, MarkAttendanceActivity.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(i);
+        } catch (Exception ex) {
+            Toast.makeText(this, ex.toString(), Toast.LENGTH_SHORT).show();
+        }
+    }
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+
             case R.id.buttonSignUp:
-                if (isValid()) {
+                //if (isValid()) {
                     dialog.setMessage("Signing Up, please wait.");
                     dialog.show();
-                    //callRequest.requestSignUp(editTextCNIC.getText().toString(), editTextFullName.getText().toString(), editTextPassword.getText().toString(), editTextPhone.getText().toString(), getBroker(), editTextCompanyName.getText().toString(), editTextOfficeLocation.getText().toString(), getDeviceId(this));
-                }
+
+                    String office_id="0";
+
+                    TextView textView = (TextView)spinnerOffice.getSelectedView();
+                    String officeName = textView.getText().toString();
+
+                    for(Offices o : officesResponse.getResponse().getData())
+                    {
+                        if(o.getName().equals(officeName))
+                        {
+                            office_id=o.getId()+"";
+                        }
+                    }
+                    callRequest.requestRegister(editTextCNIC.getText().toString(),editTextPassword.getText().toString(), editTextFullName.getText().toString(), editTextPhone.getText().toString(),office_id);
+               // }
                 break;
             case R.id.textViewLogin:
                 Intent i = new Intent(this, EmailLoginActivity.class);
@@ -124,8 +152,6 @@ public class SignUpActivity extends AppCompatActivity implements ApiCallRequest.
 
         brokerList = new ArrayList<>();
         brokerList.add("-- Select Office --");
-        brokerList.add("Office 1");
-        brokerList.add("Office 2");
 
         Intent intent = getIntent();
         phoneNumber = intent.getStringExtra("phoneNumber");
@@ -142,6 +168,9 @@ public class SignUpActivity extends AppCompatActivity implements ApiCallRequest.
 
         buttonSignUp.setOnClickListener(this);
         textViewLogin.setOnClickListener(this);
+
+        callRequest.requestGetOffices();
+
     }
 
     private boolean isValid() {
@@ -251,15 +280,6 @@ public class SignUpActivity extends AppCompatActivity implements ApiCallRequest.
         }
 
         return flag;
-    }
-
-    private int getBroker() {
-        if (brokerList.get(spinnerOffice.getSelectedItemPosition()).equals("Broker")) {
-            return 1;
-        } else {
-            return 0;
-        }
-
     }
 
 }

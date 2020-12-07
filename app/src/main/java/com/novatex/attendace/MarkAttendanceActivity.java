@@ -37,6 +37,7 @@ import java.util.Calendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static android.Manifest.permission.ACCESS_BACKGROUND_LOCATION;
 import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static android.Manifest.permission.INTERNET;
@@ -105,7 +106,7 @@ public class MarkAttendanceActivity extends AppCompatActivity implements View.On
 
     private void getPermissions() {
 
-        if (ActivityCompat.checkSelfPermission(this, ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED || ActivityCompat.checkSelfPermission(this, ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED || ActivityCompat.checkSelfPermission(this, INTERNET) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(this, ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED || ActivityCompat.checkSelfPermission(this, ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED || ActivityCompat.checkSelfPermission(this, INTERNET) != PackageManager.PERMISSION_GRANTED || ActivityCompat.checkSelfPermission(this, ACCESS_BACKGROUND_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
             SharedPreferences mPrefs = getSharedPreferences(APPLICATION_CONFIG_PREF, MODE_PRIVATE);
 
@@ -121,7 +122,7 @@ public class MarkAttendanceActivity extends AppCompatActivity implements View.On
                     public void onClick(DialogInterface dialog, int which) {
 
                         ActivityCompat.requestPermissions(MarkAttendanceActivity.this, new String[]{
-                                ACCESS_FINE_LOCATION, ACCESS_COARSE_LOCATION, INTERNET
+                                ACCESS_FINE_LOCATION, ACCESS_COARSE_LOCATION, INTERNET,ACCESS_BACKGROUND_LOCATION
                         }, 10);
 
                         new Thread(new Runnable() {
@@ -170,6 +171,7 @@ public class MarkAttendanceActivity extends AppCompatActivity implements View.On
             case 10:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     Utility.startLocationTrackingAlarm(getApplicationContext());
+                    getLocation();
                 } else {
                     if (!ActivityCompat.shouldShowRequestPermissionRationale(this, ACCESS_FINE_LOCATION)) {
 
@@ -190,8 +192,15 @@ public class MarkAttendanceActivity extends AppCompatActivity implements View.On
 
         try {
             LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+//ACCESS_BACKGROUND_LOCATION
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                if (checkSelfPermission(ACCESS_BACKGROUND_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+                    return;
+                }
+            }
+            else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 if (checkSelfPermission(ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
                     return;

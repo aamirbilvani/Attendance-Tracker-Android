@@ -1,6 +1,7 @@
 package com.novatex.attendace;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -11,12 +12,14 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.novatex.attendace.api.ApiCallRequest;
+import com.novatex.attendace.responses.LoginResponse;
 import com.novatex.attendace.utilities.Constant;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static com.novatex.attendace.utilities.Constant.GENERIC_ERROR_API;
+import static com.novatex.attendace.utilities.Utility.initLoggedInParam;
 import static com.novatex.attendace.utilities.Utility.navigateToActivity;
 
 public class EmailLoginActivity extends AppCompatActivity implements ApiCallRequest.CallBackListener, View.OnClickListener {
@@ -51,8 +54,8 @@ public class EmailLoginActivity extends AppCompatActivity implements ApiCallRequ
                 //textViewPasswordError.setVisibility(View.VISIBLE);
 
                 //textViewPasswordError.setText("ok 53");
-                //callRequest.requestLogin(uname.getText().toString(), pass.getText().toString());
-                login();
+                callRequest.requestLogin(uname.getText().toString(), pass.getText().toString());
+                //login();
                 // }
                 break;
             case R.id.buttonCreate:
@@ -72,10 +75,8 @@ public class EmailLoginActivity extends AppCompatActivity implements ApiCallRequ
         switch (requestType) {
             case Constant.REQUEST_LOGIN:
 
-                //Toast.makeText(getApplicationContext(), "ok", Toast.LENGTH_SHORT).show();
-
-                //textViewPasswordError.setVisibility(View.VISIBLE);
-                //textViewPasswordError.setText("ok 77");
+                LoginResponse loginResponse = (LoginResponse) object;
+                initLoggedInParam(this,loginResponse.getResponse().getData());
                 login();
                 break;
 
@@ -134,7 +135,9 @@ public class EmailLoginActivity extends AppCompatActivity implements ApiCallRequ
 
     private void login() {
         try {
-            navigateToActivity(this, MarkAttendanceActivity.class);
+            Intent i = new Intent(this, MarkAttendanceActivity.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(i);
         } catch (Exception ex) {
             Toast.makeText(this, ex.toString(), Toast.LENGTH_SHORT).show();
         }

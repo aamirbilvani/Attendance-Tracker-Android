@@ -13,7 +13,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.novatex.attendace.BuildConfig;
 import com.novatex.attendace.broadcastreceivers.LocationTracking;
+import com.novatex.attendace.models.User;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -22,6 +24,7 @@ import java.util.UUID;
 
 import static android.content.Context.MODE_PRIVATE;
 import static com.novatex.attendace.utilities.Constant.DATE_TIME_FORMAT;
+import static com.novatex.attendace.utilities.Constant.LOGIN_PREF;
 import static com.novatex.attendace.utilities.Constant.PREF_UUID;
 import static com.novatex.attendace.utilities.Constant.SEND_LOCATIONS_TO_SERVER_ALARM_TIMER;
 
@@ -82,6 +85,70 @@ public class Utility {
         }).start();
 
     }
+
+
+    public static String getToken(Context context) {
+
+        SharedPreferences mPrefs = context.getSharedPreferences(LOGIN_PREF, MODE_PRIVATE);
+
+        if (BuildConfig.DEBUG) {
+            Log.e("token", mPrefs.getString("token", ""));
+        }
+
+        String token = "";
+        try {
+            token = CryptoKeystore.decText(mPrefs.getString("token", ""));
+        } catch (Exception ex) {
+            token = "";
+        }
+        return token;
+
+    }
+
+
+    public static boolean initLoggedInParam(Activity activity, User user) {
+
+        SharedPreferences mPrefs = activity.getSharedPreferences(LOGIN_PREF, MODE_PRIVATE);
+        SharedPreferences.Editor prefsEditor = mPrefs.edit();
+
+        String token=user.getToken();
+
+        try {
+            token = CryptoKeystore.encText(user.getToken());
+        } catch (Exception ex) {
+
+        }
+
+
+        prefsEditor.putString("token", token);
+        prefsEditor.putString("username", user.getUsername());
+        prefsEditor.putString("email", user.getFullname());
+        prefsEditor.putString("contact_no", user.getPhone());
+        prefsEditor.putString("brokerChk", user.getOffice_id() + "");
+        prefsEditor.putString("companyName", user.getUser_id()+"");
+        prefsEditor.apply();
+
+        //FavRepository favRepository=new FavRepository(activity.getApplication());
+        //YarnRequestRepository yarnRequestRepository=new YarnRequestRepository(activity.getApplication());
+
+        //favRepository.deleteAllCache();
+        //yarnRequestRepository.deleteAllCache();
+
+
+/*
+        ApiCallRequest callRequest;
+
+        callRequest = new ApiCallRequest(activity);
+        callRequest.setCallBackListener(new Utility());
+
+        callRequest.requestGetUserSubscriptionList(100, 1);
+
+
+ */
+        return false;
+    }
+
+
 
 
     public static String getCurrentDate() {

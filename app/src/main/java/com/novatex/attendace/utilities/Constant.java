@@ -37,6 +37,7 @@ public class Constant {
     public static final int REQUEST_RESET_PASS_EMAIL = 31;
     public static final int REQUEST_RESET_PASS= 32;
     public static final int REQUEST_GET_OFFICES = 33;
+    public static final int REQUEST_LOGOUT = 34;
 
     public static final String PLATFORM= "Android";
 

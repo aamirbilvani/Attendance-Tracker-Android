@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.novatex.attendace.models.User;
 import com.novatex.attendace.responses.LoginResponse;
+import com.novatex.attendace.responses.LogoutResponse;
 import com.novatex.attendace.responses.OfficesResponse;
 import com.novatex.attendace.responses.SignUpResponse;
 import com.novatex.attendace.utilities.Constant;
@@ -88,6 +89,26 @@ public class ApiCallRequest {
 
             @Override
             public void onFailure(Call<SignUpResponse> call, Throwable t) {
+                onResponseFail(t);
+            }
+        });
+
+    }
+
+
+
+    public void requestLogout() {
+
+        Call<LogoutResponse> call = client.requestLogout("Token "+Utility.getToken(context));
+
+        call.enqueue(new Callback<LogoutResponse>() {
+            @Override
+            public void onResponse(Call<LogoutResponse> call, Response<LogoutResponse> response) {
+                onResponseSuccess(response, Constant.REQUEST_LOGOUT);
+            }
+
+            @Override
+            public void onFailure(Call<LogoutResponse> call, Throwable t) {
                 onResponseFail(t);
             }
         });

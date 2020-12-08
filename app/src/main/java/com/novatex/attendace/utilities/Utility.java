@@ -106,6 +106,14 @@ public class Utility {
     }
 
 
+    public static void logout(Context context) {
+        SharedPreferences mPrefs = context.getSharedPreferences(LOGIN_PREF, MODE_PRIVATE);
+        SharedPreferences.Editor prefsEditor = mPrefs.edit();
+
+        prefsEditor.putString("token", "");
+        prefsEditor.apply();
+    }
+
     public static boolean initLoggedInParam(Activity activity, User user) {
 
         SharedPreferences mPrefs = activity.getSharedPreferences(LOGIN_PREF, MODE_PRIVATE);

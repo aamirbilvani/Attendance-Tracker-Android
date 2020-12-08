@@ -5,4 +5,16 @@
         <item name="windowNoTitle">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
+
+
+    <style
+        name="SplashTheme"
+        parent="AppTheme">
+        <item name="android:windowFullscreen">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowBackground">@color/defaultBgColor</item>
+        <item name="android:fontFamily">@font/sf</item>
+        <item name="fontFamily">@font/sf</item>
+    </style>
 </resources>

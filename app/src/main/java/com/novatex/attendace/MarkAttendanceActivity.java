@@ -46,9 +46,12 @@ import static com.novatex.attendace.utilities.Constant.GENERIC_ERROR_API;
 import static com.novatex.attendace.utilities.Constant.NEAR_LOCATION_GEOFENCE_RADIUS;
 import static com.novatex.attendace.utilities.Constant.NEAR_LOCATION_GEOFENCE_RADIUS_GRACE;
 
-public class MarkAttendanceActivity extends AppCompatActivity implements View.OnClickListener {
+public class MarkAttendanceActivity extends AppCompatActivity implements ApiCallRequest.CallBackListener,  View.OnClickListener {
+
+    private ApiCallRequest callRequest;
 
     private Button buttonMarkAttendance;
+    private TextView textViewLogout;
     private TextClock textClockDate;
 
     @Override
@@ -66,8 +69,15 @@ public class MarkAttendanceActivity extends AppCompatActivity implements View.On
     public void init() {
         buttonMarkAttendance = findViewById(R.id.buttonMarkAttendance);
         textClockDate= findViewById(R.id.textClockDate);
+        textViewLogout= findViewById(R.id.textViewLogout);
+
         buttonMarkAttendance.setOnClickListener(this);
+        textViewLogout.setOnClickListener(this);
         buttonMarkAttendance.setEnabled(false);
+
+        //initializing callRequest for API
+        callRequest = new ApiCallRequest(getApplicationContext());
+        callRequest.setCallBackListener(this);
 
         setTextClockDateFormat(textClockDate);
 
@@ -273,9 +283,38 @@ public class MarkAttendanceActivity extends AppCompatActivity implements View.On
             case R.id.buttonMarkAttendance:
                 Toast.makeText(this, "Attendance Marked", Toast.LENGTH_SHORT).show();
                 break;
+            case R.id.textViewLogout:
+
+                callRequest.requestLogout();
+
+                textViewLogout.setText("Loading...");
+                break;
             default:
                 break;
         }
+    }
+
+
+
+
+    @Override
+    public void callBack(int requestType, Object object) {
+
+        switch (requestType) {
+            case Constant.REQUEST_LOGOUT:
+                Utility.logout(this);
+
+                Intent i = new Intent(this, EmailLoginActivity.class);
+                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(i);
+                break;
+
+            default:
+                Toast.makeText(getApplicationContext(), GENERIC_ERROR_API, Toast.LENGTH_SHORT).show();
+                break;
+
+        }
+
     }
 
 }

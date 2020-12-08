@@ -79,23 +79,10 @@ public class LocationTracking extends BroadcastReceiver implements ApiCallReques
     public void callBack(int requestType, Object object) {
 
         switch (requestType) {
-            case Constant.REQUEST_USER_LOCATION:
-                /*
-                UserLocationResponse response = (UserLocationResponse) object;
-                if (!response.getResponse().getStatus().equalsIgnoreCase("200")) {
-                    Log.e("error", "location unable to send");
+            case Constant.ADD_ATTENDANCE:
 
-                    return;
-                }
-
-                Log.e("msg", "Inserted user location");
-
-
-
-                 */
                 break;
             case Constant.REQUEST_FAILED:
-
 
                 break;
         }
@@ -106,31 +93,7 @@ public class LocationTracking extends BroadcastReceiver implements ApiCallReques
     public void OnLocationChange(Location location, Context context) {
 
         if (Utility.isNetworkAvailable(context)) {
-/*
-            UserLocationRequest request = new UserLocationRequest();
-            request.setUserId("0");
-            request.setLat(location.getLatitude() + "");
-            request.setLng(location.getLongitude() + "");
-            request.setHour(Calendar.getInstance().get(Calendar.HOUR) + "");
-
-
-            SharedPreferences prefs = context.getSharedPreferences(PREFS_LOCATION_TRACKING_NAME, MODE_PRIVATE);
-            String uuid = prefs.getString(PREF_UUID, DOESNT_EXIST_STRING);
-
-            if (uuid.equals(DOESNT_EXIST_STRING)) {
-                prefs.edit().putString(PREF_UUID, UUID.randomUUID().toString()).apply();
-                uuid = prefs.getString(PREF_UUID, DOESNT_EXIST_STRING);
-            }
-
-            request.setDeviceId(uuid);
-
-           //request.setUserId(as.getUserId());
-
-
-            callRequest.requestUserLocation(request.getUserId(),request.getDeviceId(),request.getLat(),request.getLng());
-
-
- */
+            callRequest.requestAddAttendanceResponse(Utility.getCurrentOnlyDate(),Utility.getCurrentOnlyTime(),location.getLatitude()+"",location.getLongitude()+"","1");
         }
     }
 }

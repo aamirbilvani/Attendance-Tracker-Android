@@ -38,6 +38,7 @@ public class Constant {
     public static final int REQUEST_RESET_PASS= 32;
     public static final int REQUEST_GET_OFFICES = 33;
     public static final int REQUEST_LOGOUT = 34;
+    public static final int ADD_ATTENDANCE= 35;
 
     public static final String PLATFORM= "Android";
 
@@ -55,6 +56,7 @@ public class Constant {
 
 
     public static final String DATE_TIME_FORMAT = "yyyy-MM-dd hh:mm:ss";
+    public static final String TIME_FORMAT = "hh:mm:ss";
     public static final String SERVER_DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
 
     public static final String DATE_FORMAT = "yyyy-MM-dd";

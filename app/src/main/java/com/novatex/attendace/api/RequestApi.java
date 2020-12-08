@@ -1,5 +1,6 @@
 package com.novatex.attendace.api;
 
+import com.novatex.attendace.responses.AddAttendanceResponse;
 import com.novatex.attendace.responses.LoginResponse;
 import com.novatex.attendace.responses.LogoutResponse;
 import com.novatex.attendace.responses.OfficesResponse;
@@ -36,6 +37,15 @@ public interface RequestApi {
 
     @POST("logout/")
     Call<LogoutResponse> requestLogout(@Header("Authorization") String auth);
+
+    @FormUrlEncoded
+    @POST("add_attendance/")
+    Call<AddAttendanceResponse> requestAddAttendanceResponse(@Header("Authorization") String auth,
+                                                             @Field("date") String date,
+                                                             @Field("time") String time,
+                                                             @Field("lat") String lat,
+                                                             @Field("lng") String lng,
+                                                             @Field("ispresent") String ispresent);
 
     @GET("getoffices/")
     Call<OfficesResponse> requestGetOffices();

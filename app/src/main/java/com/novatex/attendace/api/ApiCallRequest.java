@@ -3,6 +3,7 @@ package com.novatex.attendace.api;
 import android.content.Context;
 
 import com.novatex.attendace.models.User;
+import com.novatex.attendace.responses.AddAttendanceResponse;
 import com.novatex.attendace.responses.LoginResponse;
 import com.novatex.attendace.responses.LogoutResponse;
 import com.novatex.attendace.responses.OfficesResponse;
@@ -114,6 +115,28 @@ public class ApiCallRequest {
         });
 
     }
+
+    //requestAddAttendanceResponse
+
+
+    public void requestAddAttendanceResponse(String date,String time,String lat,String lng,String ispresent) {
+
+        Call<AddAttendanceResponse> call = client.requestAddAttendanceResponse("Token "+Utility.getToken(context),date,time,lat,lng,ispresent);
+
+        call.enqueue(new Callback<AddAttendanceResponse>() {
+            @Override
+            public void onResponse(Call<AddAttendanceResponse> call, Response<AddAttendanceResponse> response) {
+                onResponseSuccess(response, Constant.ADD_ATTENDANCE);
+            }
+
+            @Override
+            public void onFailure(Call<AddAttendanceResponse> call, Throwable t) {
+                onResponseFail(t);
+            }
+        });
+
+    }
+
 
     private void onResponseSuccess(Response response, int requestCode) {
         //Global.requests=Global.requests+1;

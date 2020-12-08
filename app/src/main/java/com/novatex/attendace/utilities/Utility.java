@@ -23,10 +23,12 @@ import java.util.Calendar;
 import java.util.UUID;
 
 import static android.content.Context.MODE_PRIVATE;
+import static com.novatex.attendace.utilities.Constant.DATE_FORMAT;
 import static com.novatex.attendace.utilities.Constant.DATE_TIME_FORMAT;
 import static com.novatex.attendace.utilities.Constant.LOGIN_PREF;
 import static com.novatex.attendace.utilities.Constant.PREF_UUID;
 import static com.novatex.attendace.utilities.Constant.SEND_LOCATIONS_TO_SERVER_ALARM_TIMER;
+import static com.novatex.attendace.utilities.Constant.TIME_FORMAT;
 
 public class Utility {
 
@@ -165,6 +167,22 @@ public class Utility {
         DateFormat dateFormat = new SimpleDateFormat(DATE_TIME_FORMAT);
         return dateFormat.format(calendar.getTime());
     }
+
+
+    public static String getCurrentOnlyDate() {
+
+        Calendar calendar = Calendar.getInstance();
+        DateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
+        return dateFormat.format(calendar.getTime());
+    }
+
+    public static String getCurrentOnlyTime() {
+
+        Calendar calendar = Calendar.getInstance();
+        DateFormat dateFormat = new SimpleDateFormat(TIME_FORMAT);
+        return dateFormat.format(calendar.getTime());
+    }
+
 
 
     public static void startLocationTrackingAlarm(Context context) {

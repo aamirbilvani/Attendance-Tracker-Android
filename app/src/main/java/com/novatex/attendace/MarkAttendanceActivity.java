@@ -45,6 +45,8 @@ import static com.novatex.attendace.utilities.Constant.APPLICATION_CONFIG_PREF;
 import static com.novatex.attendace.utilities.Constant.GENERIC_ERROR_API;
 import static com.novatex.attendace.utilities.Constant.NEAR_LOCATION_GEOFENCE_RADIUS;
 import static com.novatex.attendace.utilities.Constant.NEAR_LOCATION_GEOFENCE_RADIUS_GRACE;
+import static com.novatex.attendace.utilities.Utility.getCurrentOnlyDate;
+import static com.novatex.attendace.utilities.Utility.getCurrentOnlyTime;
 
 public class MarkAttendanceActivity extends AppCompatActivity implements ApiCallRequest.CallBackListener,  View.OnClickListener {
 
@@ -52,7 +54,8 @@ public class MarkAttendanceActivity extends AppCompatActivity implements ApiCall
 
     private Button buttonMarkAttendance;
     private TextView textViewLogout;
-    private TextClock textClockDate;
+    private TextClock textClockDate,textClockTime;
+    private double lat,lng;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +72,7 @@ public class MarkAttendanceActivity extends AppCompatActivity implements ApiCall
     public void init() {
         buttonMarkAttendance = findViewById(R.id.buttonMarkAttendance);
         textClockDate= findViewById(R.id.textClockDate);
+        textClockTime= findViewById(R.id.textClockTime);
         textViewLogout= findViewById(R.id.textViewLogout);
 
         buttonMarkAttendance.setOnClickListener(this);
@@ -225,6 +229,32 @@ public class MarkAttendanceActivity extends AppCompatActivity implements ApiCall
     }
 
 
+    private void addAttendance() {
+
+        try {
+            LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+//ACCESS_BACKGROUND_LOCATION
+
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                if (checkSelfPermission(ACCESS_BACKGROUND_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+                    return;
+                }
+            }
+            else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if (checkSelfPermission(ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+                    return;
+                }
+            }
+
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 1, locationMarkAttendanceListener);
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 1, locationMarkAttendanceListener);
+        } catch (Exception ex) {
+
+        }
+    }
+
     private LocationListener locationListener = new LocationListener() {
         @Override
         public void onLocationChanged(Location currentLocation) {
@@ -277,11 +307,32 @@ public class MarkAttendanceActivity extends AppCompatActivity implements ApiCall
     };
 
 
+    private LocationListener locationMarkAttendanceListener = new LocationListener() {
+        @Override
+        public void onLocationChanged(Location currentLocation) {
+            callRequest.requestAddAttendanceResponse(getCurrentOnlyDate(),getCurrentOnlyTime(),currentLocation.getLatitude()+"",currentLocation.getLongitude()+"","1");
+        }
+
+        @Override
+        public void onStatusChanged(String s, int i, Bundle bundle) {
+
+        }
+
+        @Override
+        public void onProviderEnabled(String s) {
+
+        }
+
+        @Override
+        public void onProviderDisabled(String s) {
+
+        }
+    };
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.buttonMarkAttendance:
-                Toast.makeText(this, "Attendance Marked", Toast.LENGTH_SHORT).show();
+                addAttendance();
                 break;
             case R.id.textViewLogout:
 
@@ -309,6 +360,9 @@ public class MarkAttendanceActivity extends AppCompatActivity implements ApiCall
                 startActivity(i);
                 break;
 
+            case Constant.ADD_ATTENDANCE:
+                Toast.makeText(getApplicationContext(), "Attendance Marked Ya hooo! ", Toast.LENGTH_SHORT).show();
+                break;
             default:
                 Toast.makeText(getApplicationContext(), GENERIC_ERROR_API, Toast.LENGTH_SHORT).show();
                 break;

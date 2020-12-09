@@ -69,15 +69,15 @@
 
             <EditText
 
-                android:id="@+id/editTextUsername"
+                android:id="@+id/editTextCNIC"
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/edittextshape"
                 android:drawablePadding="10dp"
                 android:fontFamily="@font/san_francisco"
-                android:hint="Username"
-                android:inputType="textEmailAddress"
+                android:hint="CNIC"
+                android:inputType="numberPassword"
                 android:paddingLeft="@dimen/default_padding"
 
                 android:paddingRight="@dimen/default_padding"
@@ -88,7 +88,7 @@
 
             <TextView
 
-                android:id="@+id/textViewUsernameError"
+                android:id="@+id/textViewCNICError"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

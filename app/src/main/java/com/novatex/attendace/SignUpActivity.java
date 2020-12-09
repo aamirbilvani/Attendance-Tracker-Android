@@ -18,6 +18,7 @@ import com.novatex.attendace.models.Offices;
 import com.novatex.attendace.responses.OfficesResponse;
 import com.novatex.attendace.responses.SignUpResponse;
 import com.novatex.attendace.utilities.Constant;
+import com.novatex.attendace.utilities.NumericKeyBoardTransformationMethod;
 import com.novatex.attendace.utilities.Utility;
 
 import java.util.ArrayList;
@@ -102,7 +103,7 @@ public class SignUpActivity extends AppCompatActivity implements ApiCallRequest.
         switch (view.getId()) {
 
             case R.id.buttonSignUp:
-                //if (isValid()) {
+                if (isValid()) {
                     dialog.setMessage("Signing Up, please wait.");
                     dialog.show();
 
@@ -119,7 +120,7 @@ public class SignUpActivity extends AppCompatActivity implements ApiCallRequest.
                         }
                     }
                     callRequest.requestRegister(editTextCNIC.getText().toString(),editTextPassword.getText().toString(), editTextFullName.getText().toString(), editTextPhone.getText().toString(),office_id);
-               // }
+                }
                 break;
             case R.id.textViewLogin:
                 Intent i = new Intent(this, EmailLoginActivity.class);
@@ -150,6 +151,9 @@ public class SignUpActivity extends AppCompatActivity implements ApiCallRequest.
         textViewLogin = findViewById(R.id.textViewLogin);
         spinnerOffice = findViewById(R.id.spinnerOffice);
 
+        editTextCNIC.setTransformationMethod(new NumericKeyBoardTransformationMethod());
+
+
         brokerList = new ArrayList<>();
         brokerList.add("-- Select Office --");
 
@@ -179,35 +183,34 @@ public class SignUpActivity extends AppCompatActivity implements ApiCallRequest.
         //flag will be returned in this function that means if the form is valid this func will return true else false.
         boolean flag = true;
 
-        //Username Mandatory check
+
+        //checking if editTextCNIC is empty or not in cnic format
         if (editTextCNIC.getText().toString().trim().equals("")) {
+
+            textViewCNICError.setText("Please enter CNIC its a mandatory field");
             textViewCNICError.setVisibility(View.VISIBLE);
             flag = false;
 
         } else {
-            textViewCNICError.setVisibility(View.INVISIBLE);
-
+            final Pattern VALID_CNIC_REGEX = Pattern.compile("^[0-9]{13}$", Pattern.CASE_INSENSITIVE);
+            Matcher matcher = VALID_CNIC_REGEX.matcher(editTextCNIC.getText().toString().trim());
+            if (!matcher.find()) {
+                textViewCNICError.setText("CNIC is not in correct format, it should be 13 digits without dashes");
+                textViewCNICError.setVisibility(View.VISIBLE);
+                flag = false;
+            } else {
+                textViewCNICError.setVisibility(View.INVISIBLE);
+            }
         }
 
-        //Email Mandatory check
+        //FullName Mandatory check
         if (editTextFullName.getText().toString().trim().equals("")) {
-            textViewFullNameError.setText("Please enter Email its a mandatory field");
+            textViewFullNameError.setText("Please enter Full Name its a mandatory field");
             textViewFullNameError.setVisibility(View.VISIBLE);
             flag = false;
 
-        } else {
-
-            //Email correct format check
-
-            final Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
-            Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(editTextFullName.getText().toString().trim());
-            if (!matcher.find()) {
-                textViewFullNameError.setText("Email is not in correct format");
-                textViewFullNameError.setVisibility(View.VISIBLE);
-                flag = false;
-            } else {
-                textViewFullNameError.setVisibility(View.INVISIBLE);
-            }
+        }  else {
+            textViewFullNameError.setVisibility(View.INVISIBLE);
 
         }
 
@@ -268,7 +271,7 @@ public class SignUpActivity extends AppCompatActivity implements ApiCallRequest.
         }
 
 
-        //Broker Selected check
+        //Office Selected check
         if (spinnerOffice.getSelectedItemPosition() == 0) {
             textViewOfficeError.setText("Please select Office its a madatry field");
             textViewOfficeError.setVisibility(View.VISIBLE);

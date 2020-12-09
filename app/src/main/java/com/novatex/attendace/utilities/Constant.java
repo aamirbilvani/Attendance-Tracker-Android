@@ -157,7 +157,7 @@ public class Constant {
     public static final String PREF_IS_FIRST_RUN = "NearLocationAlarm";
 
     //public static final long  SEND_LOCATIONS_TO_SERVER_ALARM_TIMER=1800000;
-    public static final long  SEND_LOCATIONS_TO_SERVER_ALARM_TIMER=1000*60;
+    public static final long  SEND_LOCATIONS_TO_SERVER_ALARM_TIMER=1000*60*30;
     //public static final long  SEND_LOCATIONS_TO_SERVER_ALARM_TIMER=1000;
 
     public static final int  ACCESS_TOKEN_EXPIRATION_TIME_HOURS=23;

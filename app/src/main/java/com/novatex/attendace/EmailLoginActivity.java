@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.novatex.attendace.api.ApiCallRequest;
 import com.novatex.attendace.responses.LoginResponse;
 import com.novatex.attendace.utilities.Constant;
+import com.novatex.attendace.utilities.NumericKeyBoardTransformationMethod;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -27,10 +28,11 @@ public class EmailLoginActivity extends AppCompatActivity implements ApiCallRequ
 
     private ApiCallRequest callRequest;
 
-    private EditText uname, pass;
+    private EditText editTextCNIC, pass;
     private Button buttonLogin, buttonCreate;
     private ProgressDialog dialog;
-    private TextView textViewUsernameError, textViewPasswordError, textViewForgotPassword;
+    private TextView textViewCNICError, textViewPasswordError, textViewForgotPassword;
+    
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +48,7 @@ public class EmailLoginActivity extends AppCompatActivity implements ApiCallRequ
         switch (view.getId()) {
 
             case R.id.buttonLogin:
-                //   if (isValid()) {
+                   if (isValid()) {
               //  dialog.setMessage("Loggin In, please wait.");
                // dialog.show();
                 //Toast.makeText(getApplicationContext(), "ok", Toast.LENGTH_SHORT).show();
@@ -54,9 +56,9 @@ public class EmailLoginActivity extends AppCompatActivity implements ApiCallRequ
                 //textViewPasswordError.setVisibility(View.VISIBLE);
 
                 //textViewPasswordError.setText("ok 53");
-                callRequest.requestLogin(uname.getText().toString(), pass.getText().toString());
+                callRequest.requestLogin(editTextCNIC.getText().toString(), pass.getText().toString());
                 //login();
-                // }
+                 }
                 break;
             case R.id.buttonCreate:
 
@@ -110,16 +112,15 @@ public class EmailLoginActivity extends AppCompatActivity implements ApiCallRequ
 
     private void init() {
         //initializing components
-        uname = findViewById(R.id.editTextUsername);
+        editTextCNIC = findViewById(R.id.editTextCNIC);
         pass = findViewById(R.id.editTextPassword);
         buttonLogin = findViewById(R.id.buttonLogin);
         dialog = new ProgressDialog(this);
-        textViewUsernameError = findViewById(R.id.textViewUsernameError);
+        textViewCNICError = findViewById(R.id.textViewCNICError);
         textViewPasswordError = findViewById(R.id.textViewPasswordError);
         textViewPasswordError = findViewById(R.id.textViewPasswordError);
         textViewForgotPassword = findViewById(R.id.textViewForgotPassword);
         buttonCreate = findViewById(R.id.buttonCreate);
-
         //initializing callRequest for API
         callRequest = new ApiCallRequest(getApplicationContext());
         callRequest.setCallBackListener(this);
@@ -129,6 +130,7 @@ public class EmailLoginActivity extends AppCompatActivity implements ApiCallRequ
         buttonCreate.setOnClickListener(this);
         textViewForgotPassword.setOnClickListener(this);
 
+        editTextCNIC.setTransformationMethod(new NumericKeyBoardTransformationMethod());
 
     }
 
@@ -149,22 +151,22 @@ public class EmailLoginActivity extends AppCompatActivity implements ApiCallRequ
         //flag will be returned in this function that means if the form is valid this func will return true else false.
         boolean flag = true;
 
-        //checking if uname is empty or not in email format
-        if (uname.getText().toString().trim().equals("")) {
+        //checking if editTextCNIC is empty or not in cnic format
+        if (editTextCNIC.getText().toString().trim().equals("")) {
 
-            textViewUsernameError.setText("Please enter Email its a mandatory field");
-            textViewUsernameError.setVisibility(View.VISIBLE);
+            textViewCNICError.setText("Please enter CNIC its a mandatory field");
+            textViewCNICError.setVisibility(View.VISIBLE);
             flag = false;
 
         } else {
-            final Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
-            Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(uname.getText().toString().trim());
+            final Pattern VALID_CNIC_REGEX = Pattern.compile("^[0-9]{13}$", Pattern.CASE_INSENSITIVE);
+            Matcher matcher = VALID_CNIC_REGEX.matcher(editTextCNIC.getText().toString().trim());
             if (!matcher.find()) {
-                textViewUsernameError.setText("Email is not in correct format");
-                textViewUsernameError.setVisibility(View.VISIBLE);
+                textViewCNICError.setText("CNIC is not in correct format, it should be 13 digits without dashes");
+                textViewCNICError.setVisibility(View.VISIBLE);
                 flag = false;
             } else {
-                textViewUsernameError.setVisibility(View.INVISIBLE);
+                textViewCNICError.setVisibility(View.INVISIBLE);
             }
         }
 
